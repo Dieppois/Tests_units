@@ -39,7 +39,6 @@ class FileSelector:
     def clear_selection(self):
         self.selected_files.clear()
 
-
 class FileExplorer:
     def __init__(self):
         self.current_path = os.path.expanduser("~")
@@ -70,37 +69,42 @@ class FileExplorer:
         self.current_path = os.path.dirname(self.current_path)
         self.display_directory_contents(selector)
 
-
 class FileManager:
     def __init__(self):
         self.file_selector = FileSelector()
 
     def copy_files(self, destination):
         selected_files = self.file_selector.get_selected_files()
+
         for file in selected_files:
             if os.path.exists(file):
                 shutil.copy2(file, destination)
         self.file_selector.clear_selection()
+
         print(f"{len(selected_files)} file(s) copied")
+
 
     def move_files(self, destination):
         selected_files = self.file_selector.get_selected_files()
+
         for file in selected_files:
             if os.path.exists(file):
                 shutil.move(file, destination)
         self.file_selector.clear_selection()
+
         print(f"{len(selected_files)} file(s) moved")
 
     def delete_files(self):
         selected_files = self.file_selector.get_selected_files()
+
         for file in selected_files:
             if os.path.isfile(file):
                 os.remove(file)
             elif os.path.isdir(file):
                 shutil.rmtree(file)
         self.file_selector.clear_selection()
-        print(f"{len(selected_files)} file(s)/folder(s) deleted")
 
+        print(f"{len(selected_files)} file(s)/folder(s) deleted")
 
 def main_menu():
     explorer = FileExplorer()
